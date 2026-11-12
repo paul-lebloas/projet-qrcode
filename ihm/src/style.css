@@ -1,0 +1,492 @@
+/* Jetons : bleu-gris de rayon, encre, étiquette blanche, rouge du lecteur laser, jaune de bandeau de prix. */
+:root {
+  --paper: #eef2f4;
+  --ink: #17212e;
+  --muted: #526071;
+  --rule: #c5cfd7;
+  --label: #ffffff;
+  --label-ink: #17212e;
+  --label-edge: #17212e;
+  --laser: #d4251a;
+  --laser-text: #b01e13;
+  --ok-text: #14693f;
+  --tag: #f4d35e;
+  --field: #ffffff;
+  --radius: 3px;
+  --font: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0f1721;
+    --ink: #e8eef3;
+    --muted: #9fb0c0;
+    --rule: #2b3a4a;
+    --laser-text: #ff7468;
+    --ok-text: #67d39b;
+    --field: #162231;
+    --label-edge: #6f879d;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+dl,
+dd {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--laser);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- page ---------- */
+.page {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.masthead h1 {
+  font-size: clamp(2.4rem, 7vw, 4rem);
+  font-weight: 800;
+  font-stretch: 70%;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.masthead p {
+  margin-top: 0.75rem;
+  max-width: 34rem;
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 56rem) {
+  .layout {
+    grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+.inputs {
+  display: grid;
+  gap: 2.5rem;
+}
+
+h2 {
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--ink);
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-stretch: 85%;
+}
+
+/* ---------- formulaires ---------- */
+.field-row label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.field-line {
+  display: flex;
+  gap: 0.5rem;
+}
+
+input[type='text'],
+input[type='search'] {
+  flex: 1;
+  min-width: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--field);
+  color: var(--ink);
+  font: inherit;
+}
+
+button,
+.button {
+  padding: 0.65rem 1rem;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+button.primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+button:not(:disabled):hover,
+.button:hover {
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: translate(-1px, -1px);
+}
+
+.hint {
+  min-height: 1.5rem;
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.hint.good {
+  color: var(--ok-text);
+}
+
+.hint.bad {
+  color: var(--laser-text);
+}
+
+.photo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.photo .button {
+  display: inline-block;
+}
+
+.photo input:focus-visible + .button {
+  outline: 3px solid var(--laser);
+  outline-offset: 2px;
+}
+
+.preview {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+}
+
+.examples-title {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.chip {
+  padding: 0.3rem 0.7rem;
+  border-color: var(--rule);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.results {
+  margin-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.results li {
+  border-bottom: 1px solid var(--rule);
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.6rem 0.25rem;
+  border: 0;
+  border-radius: 0;
+  text-align: left;
+  font-weight: 500;
+}
+
+.result-item:not(:disabled):hover {
+  box-shadow: none;
+  transform: none;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+}
+
+.result-brand {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.error {
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--laser);
+  background: color-mix(in srgb, var(--laser) 10%, transparent);
+  color: var(--laser-text);
+  font-weight: 500;
+}
+
+/* ---------- résultat : étiquette de rayon ---------- */
+.outcome {
+  min-width: 0;
+}
+
+.label {
+  position: relative;
+  max-width: 34rem;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--label);
+  color: var(--label-ink);
+  box-shadow: 0 0 0 1.5px var(--label-edge), 6px 6px 0 var(--label-edge);
+}
+
+.label-category {
+  padding: 0.35rem 1.25rem;
+  background: var(--tag);
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-stretch: 85%;
+}
+
+.label-body {
+  padding: 1.25rem 1.25rem 1rem;
+}
+
+.label-name {
+  font-size: clamp(1.9rem, 5vw, 2.6rem);
+  font-weight: 800;
+  font-stretch: 68%;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.label-brand {
+  margin-top: 0.4rem;
+  font-weight: 600;
+}
+
+.label-description {
+  margin-top: 0.75rem;
+  max-width: 28rem;
+  color: #3d4a5a;
+}
+
+.barcode {
+  display: block;
+  width: min(100%, 17rem);
+  height: auto;
+  margin-top: 1.25rem;
+}
+
+.barcode-digits {
+  font-family: var(--font);
+  font-size: 9px;
+  font-weight: 500;
+  fill: #17212e;
+}
+
+.label-facts {
+  display: grid;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem 1.25rem;
+  border-top: 1.5px dashed #9aa7b3;
+  font-size: 0.9rem;
+}
+
+.label-facts div {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+}
+
+.label-facts dt {
+  font-weight: 700;
+}
+
+.label-facts dd {
+  overflow-wrap: anywhere;
+}
+
+.label-facts dd[data-cache='HIT'] {
+  color: var(--ok-text);
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .label-facts dd[data-cache='HIT'] {
+    color: #14693f;
+  }
+}
+
+/* Le trait de lecteur : un seul passage quand l'étiquette arrive, en boucle pendant la recherche. */
+.scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--laser);
+  box-shadow: 0 0 12px 2px color-mix(in srgb, var(--laser) 55%, transparent);
+  pointer-events: none;
+}
+
+.label.sweep::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: var(--laser);
+  box-shadow: 0 0 12px 2px color-mix(in srgb, var(--laser) 55%, transparent);
+  pointer-events: none;
+  animation: sweep-once 0.7s ease-out 1 forwards;
+}
+
+.label.scanning {
+  min-height: 12rem;
+  padding: 1.5rem 1.25rem;
+}
+
+.label.scanning .scanline {
+  animation: sweep-loop 1.2s ease-in-out infinite alternate;
+}
+
+.scanning-text {
+  font-weight: 600;
+  color: #3d4a5a;
+}
+
+@keyframes sweep-once {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(24rem);
+    opacity: 0;
+  }
+}
+
+@keyframes sweep-loop {
+  from {
+    top: 0;
+  }
+  to {
+    top: calc(100% - 3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .label.sweep::after {
+    animation: none;
+    opacity: 0;
+  }
+  .label.scanning .scanline {
+    animation: none;
+    top: 50%;
+  }
+  button:not(:disabled):hover,
+  .button:hover {
+    transform: none;
+  }
+}
+
+.not-found {
+  max-width: 34rem;
+  padding: 1.25rem;
+  border: 1.5px dashed var(--ink);
+  border-radius: var(--radius);
+}
+
+.not-found h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-stretch: 75%;
+}
+
+.not-found p {
+  margin-top: 0.5rem;
+}
+
+.break {
+  display: block;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.empty {
+  max-width: 34rem;
+  padding: 2rem 1.25rem;
+  border: 1.5px dashed var(--rule);
+  border-radius: var(--radius);
+  color: var(--muted);
+}
+
+.status {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.status:empty,
+.status p:empty {
+  display: none;
+}
